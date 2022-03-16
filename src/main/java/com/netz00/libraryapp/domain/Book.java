@@ -83,7 +83,7 @@ public class Book {
     private LocalDate last_modified_date;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(
             name = "author_id",
             referencedColumnName = "id"

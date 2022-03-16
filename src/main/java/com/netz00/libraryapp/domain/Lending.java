@@ -44,11 +44,7 @@ public class Lending {
             nullable = true
     )
     private LocalDate date_returning;
-
-    /**
-     * TODO
-     * define statuses as ENUMS
-     */
+    
     @Enumerated(EnumType.STRING)
     @Column(
             name = "status",
