@@ -1,6 +1,5 @@
 package com.netz00.libraryapp.service;
 
-import com.netz00.libraryapp.domain.Author;
 import com.netz00.libraryapp.domain.Book;
 
 import java.util.List;
@@ -15,12 +14,12 @@ public interface BookService {
 
     public Book deleteBook(String id);
 
-    public Book patchBook(String id, Book author);
+    public Book patchBook(String id, Book book);
 
 
     /**
      *  Find all books of certain author
      */
-    public List<Book> findAll(Author author);
+    public List<Book> findAll(Long authorId);
 
 }
