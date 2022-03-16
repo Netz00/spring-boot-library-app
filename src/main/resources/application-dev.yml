@@ -1,4 +1,4 @@
-# h2 console is available at http://localhost:8080/console
+# h2 console is available at http://localhost:8080/h2-console
 
 spring:
   h2:
