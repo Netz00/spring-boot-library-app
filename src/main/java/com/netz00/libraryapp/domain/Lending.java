@@ -17,13 +17,13 @@ public class Lending {
 
     @Id
     @SequenceGenerator(
-            name = "author_sequence",
-            sequenceName = "author_sequence",
+            name = "lending_sequence",
+            sequenceName = "lending_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "author_sequence"
+            generator = "lending_sequence"
     )
     @Column(
             name = "id",

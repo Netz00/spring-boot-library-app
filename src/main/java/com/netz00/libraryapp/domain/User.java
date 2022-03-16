@@ -16,13 +16,13 @@ public class User {
 
     @Id
     @SequenceGenerator(
-            name = "book_sequence",
-            sequenceName = "book_sequence",
+            name = "user_sequence",
+            sequenceName = "user_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "book_sequence"
+            generator = "user_sequence"
     )
     @Column(
             name = "id",
