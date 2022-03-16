@@ -42,7 +42,7 @@ VALUES
 INSERT INTO lending
 (id, date_lending, date_returning, status, note, last_modified_date, user_id, book_id)
 VALUES
-(lending_sequence.nextval,  '1996-03-15', '2000-03-15', 'returned', 'no damage', '2000-03-15', 1,1 ),
-(lending_sequence.nextval,  '1996-03-15', null, 'lended', null, '1996-03-15', 1,2 ),
-(lending_sequence.nextval,  '2000-03-15', '2001-03-15', 'returned', 'no damage', '2000-03-15', 2,3 ),
-(lending_sequence.nextval,  '2010-03-15', '2011-03-15', 'returned', 'no damage', '2000-03-15', 3,4 );
+(lending_sequence.nextval,  '1996-03-15', '2000-03-15', 'RETURNED', 'no damage', '2000-03-15', 1,1 ),
+(lending_sequence.nextval,  '1996-03-15', null, 'LENDED', null, '1996-03-15', 1,2 ),
+(lending_sequence.nextval,  '2000-03-15', '2001-03-15', 'RETURNED_DAMAGED', 'few pages missing', '2000-03-15', 2,3 ),
+(lending_sequence.nextval,  '2010-03-15', null, 'LOST', null, '2010-03-15', 3,4 );

@@ -1,5 +1,7 @@
 package com.netz00.libraryapp.domain;
 
+import com.netz00.libraryapp.domain.enumeration.LendingStatus;
+
 import javax.persistence.*;
 
 import java.time.LocalDate;
@@ -47,11 +49,12 @@ public class Lending {
      * TODO
      * define statuses as ENUMS
      */
+    @Enumerated(EnumType.STRING)
     @Column(
             name = "status",
             nullable = false
     )
-    private String status;
+    private LendingStatus status;
 
     @Column(
             name = "note",
@@ -83,7 +86,7 @@ public class Lending {
     public Lending() {
     }
 
-    public Lending(LocalDate date_lending, LocalDate date_returning, String status, String note, LocalDate last_modified_date, User user_id, Book book_id) {
+    public Lending(LocalDate date_lending, LocalDate date_returning, LendingStatus status, String note, LocalDate last_modified_date, User user_id, Book book_id) {
         this.date_lending = date_lending;
         this.date_returning = date_returning;
         this.status = status;
@@ -113,11 +116,11 @@ public class Lending {
         this.date_returning = date_returning;
     }
 
-    public String getStatus() {
+    public LendingStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(LendingStatus status) {
         this.status = status;
     }
 
