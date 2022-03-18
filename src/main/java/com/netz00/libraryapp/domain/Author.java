@@ -1,6 +1,8 @@
 package com.netz00.libraryapp.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -26,32 +28,21 @@ public class Author {
     )
     private Long id;
 
-
-    @Column(
-            name = "name",
-            nullable = false
-    )
+    @Size(min = 1, max = 30, message = "Name must be between 1 and 30 characters")
+    @NotEmpty(message = "Name is required. Name cannot be null or empty")
+    @Column(name = "name", nullable = false)
     private String name;
 
-
-    @Column(
-            name = "family_name",
-            nullable = false
-    )
+    @Size(min = 0, max = 30, message = "Family name must be up to 30 characters max")
+    @Column(name = "family_name", nullable = true)
     private String family_name;
 
 
-    @Column(
-            name = "birth_year",
-            nullable = false
-    )
+    @Column(name = "birth_year", nullable = true)
     private Integer birth_year;
 
 
-    @Column(
-            name = "death_year",
-            nullable = true
-    )
+    @Column(name = "death_year", nullable = true)
     private Integer death_year;
 
 
@@ -59,19 +50,13 @@ public class Author {
      * TODO
      * define genres as separate relation or even ENUMS
      */
-    @Column(
-            name = "genre",
-            nullable = true
-    )
+    @Column(name = "genre", nullable = true)
     private String genre;
 
-
-    @Column(
-            name = "note",
-            nullable = true,
-            columnDefinition = "TEXT"
-    )
+    @Size(min = 0, max = 200, message = "Note must be up to 200 characters max")
+    @Column(name = "note", nullable = true, columnDefinition = "TEXT")
     private String note;
+
 
     public Author() {
     }
