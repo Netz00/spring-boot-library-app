@@ -1,4 +1,4 @@
-package com.netz00.libraryapp.service.impl.exception;
+package com.netz00.libraryapp.exception;
 
 public class AuthorDoesNotExistsException extends RuntimeException{
     public AuthorDoesNotExistsException(Long authorId){

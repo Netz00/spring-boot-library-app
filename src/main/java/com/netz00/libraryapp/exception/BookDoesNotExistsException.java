@@ -1,4 +1,4 @@
-package com.netz00.libraryapp.service.impl.exception;
+package com.netz00.libraryapp.exception;
 
 public class BookDoesNotExistsException extends RuntimeException{
     public BookDoesNotExistsException(String bookId){
