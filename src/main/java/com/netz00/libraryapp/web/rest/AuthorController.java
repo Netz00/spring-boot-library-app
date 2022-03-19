@@ -1,6 +1,7 @@
 package com.netz00.libraryapp.web.rest;
 
 import com.netz00.libraryapp.domain.Author;
+import com.netz00.libraryapp.exception.AuthorDoesNotExistsException;
 import com.netz00.libraryapp.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class AuthorController {
     }
 
     @GetMapping(path = "{authorId}")
-    public Author getAuthor(@PathVariable Long authorId) {
+    public Author getAuthor(@PathVariable Long authorId) throws AuthorDoesNotExistsException {
         return authorService.findById(authorId);
     }
 
@@ -35,15 +36,13 @@ public class AuthorController {
     }
 
     @DeleteMapping(path = "{authorId}")
-    public void deleteAuthor(@PathVariable Long authorId) {
+    public void deleteAuthor(@PathVariable Long authorId) throws AuthorDoesNotExistsException {
         authorService.deleteAuthor(authorId);
     }
 
     @PatchMapping(path = "{authorId}")
-    public Author updateAuthor(@PathVariable Long authorId,
-                               @RequestBody Author author
-    ) {
+    public Author updateAuthor(@PathVariable Long authorId, @RequestBody Author author) throws AuthorDoesNotExistsException {
         return authorService.patchAuthor(authorId, author);
     }
-    
+
 }

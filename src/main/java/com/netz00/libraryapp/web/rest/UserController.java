@@ -1,6 +1,7 @@
 package com.netz00.libraryapp.web.rest;
 
 import com.netz00.libraryapp.domain.User;
+import com.netz00.libraryapp.exception.UserDoesNotExistsException;
 import com.netz00.libraryapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping(path = "{userId}")
-    public User getUser(@PathVariable Long userId) {
+    public User getUser(@PathVariable Long userId) throws UserDoesNotExistsException {
         return userService.findById(userId);
     }
 
@@ -35,15 +36,13 @@ public class UserController {
     }
 
     @DeleteMapping(path = "{userId}")
-    public void deleteUser(@PathVariable Long userId) {
+    public void deleteUser(@PathVariable Long userId) throws UserDoesNotExistsException {
         userService.deleteUser(userId);
     }
 
     @PatchMapping(path = "{userId}")
-    public User updateUser(@PathVariable Long userId,
-                           @RequestBody User user
-    ) {
+    public User updateUser(@PathVariable Long userId, @RequestBody User user) throws UserDoesNotExistsException {
         return userService.patchUser(userId, user);
     }
-    
+
 }
