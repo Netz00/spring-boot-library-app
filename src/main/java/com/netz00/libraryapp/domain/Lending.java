@@ -62,23 +62,23 @@ public class Lending {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    User user_id;
+    User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
-    Book book_id;
+    Book book;
 
     public Lending() {
     }
 
-    public Lending(Timestamp date_lending, Timestamp date_returning, LendingStatus status, String note, Timestamp last_modified_date, User user_id, Book book_id) {
+    public Lending(Timestamp date_lending, Timestamp date_returning, LendingStatus status, String note, Timestamp last_modified_date, User user, Book book) {
         this.date_lending = date_lending;
         this.date_returning = date_returning;
         this.status = status;
         this.note = note;
         this.last_modified_date = last_modified_date;
-        this.user_id = user_id;
-        this.book_id = book_id;
+        this.user = user;
+        this.book = book;
     }
 
     public Long getId() {
@@ -125,19 +125,19 @@ public class Lending {
         this.last_modified_date = last_modified_date;
     }
 
-    public User getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Book getBook_id() {
-        return book_id;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBook_id(Book book_id) {
-        this.book_id = book_id;
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

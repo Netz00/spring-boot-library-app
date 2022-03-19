@@ -2,6 +2,10 @@ package com.netz00.libraryapp.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -60,19 +64,24 @@ public class Book {
     /**
      * Timestamp when this Book was inserted.
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "created_date", nullable = false)
     private Timestamp created_date;
 
     /**
      * Timestamp when this Book was last modified.
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "last_modified_date", nullable = true)
     private Timestamp last_modified_date;
 
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    /**
+     * TODO
+     * Lazy doesn't work!
+     */
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
