@@ -1,6 +1,7 @@
 package com.netz00.libraryapp.repository;
 
 import com.netz00.libraryapp.domain.Book;
+import com.netz00.libraryapp.domain.projection.BookEntityOnly;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,10 @@ public interface BookRepository extends JpaRepository<Book, String> {
     @Modifying
     @Query("update Book b set b.author = NULL where b.author.id = ?1")
     void updateAuthorByAuthor_IdEquals(Long id);
+
+
+    @Query("SELECT s FROM Book s")
+    List<BookEntityOnly> custom_findAll();
 
 
 }
