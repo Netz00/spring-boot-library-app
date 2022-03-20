@@ -21,3 +21,30 @@ spring:
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+
+management:
+  info:
+    env:
+      enabled: true
+  server:
+    port: 8081
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: "health, info, env, beans"
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    env:
+      enabled: true
+    beans:
+      enabled: true
+
+info:
+  app:
+    name: Spring Library Application
+    description: This is my second spring boot application
+    version: 1.0.0
