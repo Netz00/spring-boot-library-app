@@ -48,7 +48,7 @@ public class Author {
 
     /**
      * TODO
-     * define genres as separate relation or even ENUMS
+     * define genres as separate relation or at least ENUMS
      */
     @Column(name = "genre", nullable = true)
     private String genre;

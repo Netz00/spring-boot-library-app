@@ -1,10 +1,11 @@
 package com.netz00.libraryapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.netz00.libraryapp.domain.enumeration.LendingStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.sql.Timestamp;
@@ -27,21 +28,21 @@ public class Lending {
     /**
      * Timestamp when Book was lended.
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "date_lending", nullable = false)
-    private Timestamp date_lending;
+    private Timestamp dateLending;
 
     /**
      * Timestamp when Book was returned.
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "date_returning", nullable = true)
     private Timestamp date_returning;
 
     /**
      * Status of this Lending.
      */
-    @NotEmpty(message = "Status is required. Status cannot be null or empty")
+    @NotNull(message = "Status is required. Status cannot be null or empty")
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private LendingStatus status;
@@ -56,14 +57,16 @@ public class Lending {
     /**
      * Timestamp when this Lending was last modified.
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "last_modified_date", nullable = true)
     private Timestamp last_modified_date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     User user;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "author"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     Book book;
@@ -71,8 +74,8 @@ public class Lending {
     public Lending() {
     }
 
-    public Lending(Timestamp date_lending, Timestamp date_returning, LendingStatus status, String note, Timestamp last_modified_date, User user, Book book) {
-        this.date_lending = date_lending;
+    public Lending(Timestamp dateLending, Timestamp date_returning, LendingStatus status, String note, Timestamp last_modified_date, User user, Book book) {
+        this.dateLending = dateLending;
         this.date_returning = date_returning;
         this.status = status;
         this.note = note;
@@ -85,12 +88,12 @@ public class Lending {
         return id;
     }
 
-    public Timestamp getDate_lending() {
-        return date_lending;
+    public Timestamp getDateLending() {
+        return dateLending;
     }
 
-    public void setDate_lending(Timestamp date_lending) {
-        this.date_lending = date_lending;
+    public void setDateLending(Timestamp dateLending) {
+        this.dateLending = dateLending;
     }
 
     public Timestamp getDate_returning() {
