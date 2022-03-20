@@ -1,12 +1,13 @@
 package com.netz00.libraryapp.service;
 
 import com.netz00.libraryapp.domain.Book;
+import com.netz00.libraryapp.domain.projection.BookEntityOnly;
 
 import java.util.List;
 
 public interface BookService {
 
-    public List<Book> findAll();
+    public List<BookEntityOnly> findAll();
 
     public Book findById(String id);
 

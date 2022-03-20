@@ -1,66 +1,78 @@
 package com.netz00.libraryapp.service;
 
-import com.netz00.libraryapp.domain.Book;
 import com.netz00.libraryapp.domain.Lending;
 import com.netz00.libraryapp.domain.User;
+import com.netz00.libraryapp.domain.enumeration.LendingStatus;
+import com.netz00.libraryapp.domain.projection.LendingBookOnly;
+import com.netz00.libraryapp.domain.projection.LendingEntityOnly;
+import com.netz00.libraryapp.domain.projection.LendingUserOnly;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 
 public interface LendingService {
 
+
+    // -------------- BASIC CRUD --------------
+
+    /**
+     * Read all lendings
+     */
+    public List<LendingEntityOnly> findAll();
+
+    /**
+     * Read lending by lending.id
+     */
+    public Lending findById(Long lendingId);
+
     /**
      * Creates new lending
      */
-    public Lending lendBook(User user, Book book);
+    public Lending lendBook(Long userId, String bookId, String note);
+
+    /**
+     * Update lending corresponding to lending.id
+     */
+    public Lending patchLending(Long lendingId, Lending lending);
+
+    /**
+     * Delete lending
+     */
+    public Lending deleteLending(Long id);
+
+    // ----------------------------------------
 
     /**
      * Finds lending by lending.id and changes state
      */
-    public Lending returnBook(Long id);
-
-    /**
-     * Finds lending by lending.id
-     */
-    public Lending findById(Long id);
-
-
-    /**
-     * Updates lending corresponding to lending.id
-     */
-    public Lending patchLending(Long id, Lending lending);
-
-
-    /**
-     * Finds all lending of single book
-     */
-    public List<Lending> findAll(User user);
+    public Lending returnBook(Long id, String note);
 
     /**
      * Finds all lending of single user
      */
-    public List<Lending> findAll(Book book);
+    public List<LendingBookOnly> findAll(Long userId, LendingStatus status);
 
+    /**
+     * Finds all lending of single book
+     */
+    public List<LendingUserOnly> findAll(String book, LendingStatus status);
 
     /**
      * Finds all landings with state lended
      */
-    public Lending findAllLanded();
-
-    /**
-     * Finds all landings with state lended under certain date range
-     */
-    public Lending findAllLandedPeriod(LocalDate start, LocalDate end);
+    public List<Lending> findAllByStatus(LendingStatus status);
 
 
     /**
-     * Finds all landings under certain date range
+     * Finds all lendings under given date range(with given state)
      */
-    public Lending findAllPeriod(LocalDate start, LocalDate end);
+    public List<Lending> findAllPeriod(Timestamp start, Timestamp end, LendingStatus status);
+
 
     /**
-     * Find all users that read book under certain period
+     * Find all users that read book under certain period(status RETURNED)
      */
-    public Lending findAllUsersPeriod(LocalDate start, LocalDate end);
+    public HashSet<User> findAllUsersPeriod(Timestamp start, Timestamp end, LendingStatus status);
 
 }
