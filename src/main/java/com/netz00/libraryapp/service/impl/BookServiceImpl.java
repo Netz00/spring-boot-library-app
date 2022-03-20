@@ -1,6 +1,7 @@
 package com.netz00.libraryapp.service.impl;
 
 import com.netz00.libraryapp.domain.Book;
+import com.netz00.libraryapp.domain.projection.BookEntityOnly;
 import com.netz00.libraryapp.repository.BookRepository;
 import com.netz00.libraryapp.repository.LendingRepository;
 import com.netz00.libraryapp.service.BookService;
@@ -29,8 +30,8 @@ public class BookServiceImpl implements BookService {
      * @return
      */
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookEntityOnly> findAll() {
+        return bookRepository.custom_findAll();
     }
 
     /**

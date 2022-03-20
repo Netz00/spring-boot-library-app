@@ -1,6 +1,7 @@
 package com.netz00.libraryapp.web.rest;
 
 import com.netz00.libraryapp.domain.Book;
+import com.netz00.libraryapp.domain.projection.BookEntityOnly;
 import com.netz00.libraryapp.exception.BookDoesNotExistsException;
 import com.netz00.libraryapp.service.impl.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> findAll() {
+    public List<BookEntityOnly> findAll() {
         return bookService.findAll();
     }
 
