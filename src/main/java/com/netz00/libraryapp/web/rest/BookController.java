@@ -3,6 +3,7 @@ package com.netz00.libraryapp.web.rest;
 import com.netz00.libraryapp.domain.Book;
 import com.netz00.libraryapp.domain.projection.BookEntityOnly;
 import com.netz00.libraryapp.exception.BookDoesNotExistsException;
+import com.netz00.libraryapp.service.BookService;
 import com.netz00.libraryapp.service.impl.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/books")
 public class BookController {
-    BookServiceImpl bookService;
+    BookService bookService;
 
     @Autowired
     public BookController(BookServiceImpl bookService) {
@@ -26,7 +27,7 @@ public class BookController {
     }
 
     @GetMapping(path = "{bookId}")
-    public Book getBook(@PathVariable String bookId) throws BookDoesNotExistsException {
+    public Book getBook(@PathVariable Long bookId) throws BookDoesNotExistsException {
         return bookService.findById(bookId);
     }
 
@@ -37,12 +38,12 @@ public class BookController {
     }
 
     @DeleteMapping(path = "{bookId}")
-    public void deleteBook(@PathVariable String bookId) throws BookDoesNotExistsException {
+    public void deleteBook(@PathVariable Long bookId) throws BookDoesNotExistsException {
         bookService.deleteBook(bookId);
     }
 
     @PatchMapping(path = "{bookId}")
-    public Book updateBook(@PathVariable String bookId, @RequestBody Book book) throws BookDoesNotExistsException {
+    public Book updateBook(@PathVariable Long bookId, @RequestBody Book book) throws BookDoesNotExistsException {
         return bookService.patchBook(bookId, book);
     }
 

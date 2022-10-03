@@ -1,8 +1,4 @@
 spring:
-  h2:
-    console:
-      enabled: true
-
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -11,14 +7,12 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: true
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+  sql:
+    init:
+      mode: never # don't use data.sql
 
 management:
   info:
@@ -40,9 +34,3 @@ management:
       enabled: true
     beans:
       enabled: true
-
-info:
-  app:
-    name: Spring Library Application
-    description: This is my second spring boot application
-    version: 1.0.0

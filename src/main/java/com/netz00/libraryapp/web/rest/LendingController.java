@@ -38,7 +38,7 @@ public class LendingController {
 
     @GetMapping(path = "new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Lending registerNewLending(@RequestParam(required = true) Long userId, @RequestParam(required = true) String bookId, @RequestParam(required = false) String note) {
+    public Lending registerNewLending(@RequestParam(required = true) Long userId, @RequestParam(required = true) Long bookId, @RequestParam(required = false) String note) {
         return lendingService.lendBook(userId, bookId, note);
     }
 

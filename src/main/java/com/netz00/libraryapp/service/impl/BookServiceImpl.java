@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
      * @return
      */
     @Override
-    public Book findById(String id) throws BookDoesNotExistsException {
+    public Book findById(Long id) throws BookDoesNotExistsException {
         return bookRepository.findById(id).orElseThrow(() -> new BookDoesNotExistsException(id));
     }
 
@@ -51,7 +51,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book deleteBook(String id) throws BookDoesNotExistsException {
+    public Book deleteBook(Long id) throws BookDoesNotExistsException {
         Book book = bookRepository.findById(id).orElseThrow(() -> new BookDoesNotExistsException(id));
 
         lendingRepository.updateBookByBook_IdEquals(id);
@@ -61,7 +61,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book patchBook(String id, Book book) throws BookDoesNotExistsException {
+    public Book patchBook(Long id, Book book) throws BookDoesNotExistsException {
         Book currentBook = bookRepository.findById(id).orElseThrow(() -> new BookDoesNotExistsException(id));
         bookRepository.delete(book);
 
@@ -71,13 +71,9 @@ public class BookServiceImpl implements BookService {
 
         if (book.getIsbn() != null) currentBook.setIsbn(book.getIsbn());
 
-        if (book.getCreated_date() != null) currentBook.setCreated_date(book.getCreated_date());
-
         if (book.getPublisher() != null) currentBook.setPublisher(book.getPublisher());
 
         if (book.getYear() != null) currentBook.setYear(book.getYear());
-
-        if (book.getLast_modified_date() != null) currentBook.setLast_modified_date(book.getLast_modified_date());
 
         if (book.getNote() != null) currentBook.setNote(book.getNote());
 

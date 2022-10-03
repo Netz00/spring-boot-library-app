@@ -2,16 +2,16 @@ package com.netz00.libraryapp.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -23,7 +23,7 @@ public class Book {
     @SequenceGenerator(name = "book_sequence", sequenceName = "book_sequence", allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "book_sequence")
     @Column(name = "id", updatable = false)
-    private String id;
+    private Long id;
 
     /**
      * TODO
@@ -64,9 +64,9 @@ public class Book {
     /**
      * Timestamp when this Book was inserted.
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "created_date", nullable = false)
-    private Timestamp created_date;
+    private Instant created_date = Instant.now();
 
     /**
      * Timestamp when this Book was last modified.
@@ -75,6 +75,10 @@ public class Book {
     @Column(name = "last_modified_date", nullable = true)
     private Timestamp last_modified_date;
 
+    @PreUpdate
+    protected void preUpdate() {
+        this.last_modified_date = new Timestamp((new Date()).getTime());
+    }
 
     /**
      * TODO
@@ -85,22 +89,19 @@ public class Book {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
-
     public Book() {
     }
 
-    public Book(String isbn, String name, String publisher, Integer year, String note, Timestamp created_date, Timestamp last_modified_date, Author author) {
+    public Book(String isbn, String name, String publisher, Integer year, String note, Author author) {
         this.isbn = isbn;
         this.name = name;
         this.publisher = publisher;
         this.year = year;
         this.note = note;
-        this.created_date = created_date;
-        this.last_modified_date = last_modified_date;
         this.author = author;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -144,20 +145,12 @@ public class Book {
         this.note = note;
     }
 
-    public Timestamp getCreated_date() {
+    public Instant getCreated_date() {
         return created_date;
-    }
-
-    public void setCreated_date(Timestamp created_date) {
-        this.created_date = created_date;
     }
 
     public Timestamp getLast_modified_date() {
         return last_modified_date;
-    }
-
-    public void setLast_modified_date(Timestamp last_modified_date) {
-        this.last_modified_date = last_modified_date;
     }
 
     public Author getAuthor() {
@@ -171,5 +164,18 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" + "id='" + id + '\'' + ", isbn='" + isbn + '\'' + ", name='" + name + '\'' + ", publisher='" + publisher + '\'' + ", year=" + year + ", note='" + note + '\'' + ", createdDate=" + created_date + ", lastModifiedDate=" + last_modified_date + ", author=" + author + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(isbn, book.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn, name, publisher, year, author);
     }
 }

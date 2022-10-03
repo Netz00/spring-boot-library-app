@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import java.time.Year;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -28,12 +30,12 @@ public class Author {
     )
     private Long id;
 
-    @Size(min = 1, max = 30, message = "Name must be between 1 and 30 characters")
+    @Size(min = 1, max = 20, message = "Name must be between 1 and 20 characters")
     @NotEmpty(message = "Name is required. Name cannot be null or empty")
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Size(min = 0, max = 30, message = "Family name must be up to 30 characters max")
+    @Size(min = 1, max = 40, message = "Family name must be between 1 and 40 characters")
     @Column(name = "family_name", nullable = true)
     private String family_name;
 
@@ -53,7 +55,7 @@ public class Author {
     @Column(name = "genre", nullable = true)
     private String genre;
 
-    @Size(min = 0, max = 200, message = "Note must be up to 200 characters max")
+    @Size(max = 200, message = "Note must be up to 200 characters max")
     @Column(name = "note", nullable = true, columnDefinition = "TEXT")
     private String note;
 
@@ -62,6 +64,35 @@ public class Author {
     }
 
     public Author(String name, String family_name, Integer birth_year, Integer death_year, String genre, String note) {
+
+        if (name == null || name.isEmpty())
+            throw new IllegalArgumentException("Name must not be empty");
+        if (name.length() > 20)
+            throw new IllegalArgumentException("Name must be between 1 and 20 characters long");
+
+
+        if (family_name != null && !family_name.isEmpty())
+            if (family_name.length() > 40)
+                throw new IllegalArgumentException("Family name must be between 1 and 40 characters long");
+
+        if (birth_year != null)
+            if (birth_year > Year.now().getValue())
+                throw new IllegalArgumentException("Birth year must be in the past");
+
+        if (death_year != null)
+            if (death_year > Year.now().getValue())
+                throw new IllegalArgumentException("Death year must be in the past");
+
+
+        if (birth_year != null && death_year != null)
+            if (birth_year > death_year)
+                throw new IllegalArgumentException("Death year must be after birth year");
+
+
+        if (note != null && !note.isEmpty())
+            if (note.length() > 200)
+                throw new IllegalArgumentException("Note must be up to 200 characters max");
+
         this.name = name;
         this.family_name = family_name;
         this.birth_year = birth_year;

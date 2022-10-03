@@ -9,13 +9,13 @@ public interface BookService {
 
     public List<BookEntityOnly> findAll();
 
-    public Book findById(String id);
+    public Book findById(Long id);
 
     public Book addNewBook(Book book);
 
-    public Book deleteBook(String id);
+    public Book deleteBook(Long id);
 
-    public Book patchBook(String id, Book book);
+    public Book patchBook(Long id, Book book);
 
 
     /**

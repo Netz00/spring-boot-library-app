@@ -65,7 +65,7 @@ public class LendingServiceImpl implements LendingService {
 
 
     @Override
-    public Lending lendBook(Long userId, String bookId, String note) throws UserDoesNotExistsException {
+    public Lending lendBook(Long userId, Long bookId, String note) throws UserDoesNotExistsException {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UserDoesNotExistsException(userId));
 

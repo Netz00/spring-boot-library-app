@@ -79,7 +79,7 @@ public interface LendingRepository extends JpaRepository<Lending, Long> {
     @Transactional
     @Modifying
     @Query("update Lending l set l.book = NULL where l.book.id = ?1")
-    void updateBookByBook_IdEquals(String id);
+    void updateBookByBook_IdEquals(Long id);
 
 
 }

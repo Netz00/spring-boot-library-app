@@ -29,7 +29,7 @@ public interface LendingService {
     /**
      * Creates new lending
      */
-    public Lending lendBook(Long userId, String bookId, String note);
+    public Lending lendBook(Long userId, Long bookId, String note);
 
     /**
      * Update lending corresponding to lending.id
